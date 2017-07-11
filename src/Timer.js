@@ -1,11 +1,28 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 
 class Timer extends Component {
+
+  constructor(props){
+    super(props);
+
+    this.state = {
+      clock: 0
+    };
+
+    this.ticker = this.ticker.bind(this);
+  }
+  ticker() {
+    this.setState({clock: new Date() - this.props.start})
+  }
+  componentDidMount() {
+    this.timer  = setInterval(this.ticker, 1000);
+  }
   render(){
+    let clock = Math.round(this.state.clock / 1000);
     return(
       <div>
-        <p>You have been on this site since: </p><br />
-        <span>55.98</span>
+        <p>You have been on this site for:</p>
+        <span>{clock}</span>
         <p>seconds</p>
       </div>
     );
